@@ -1,0 +1,8 @@
+<div class="search-form">
+  <mat-form-field class="search-full-width" appearance="fill">
+    <mat-label>Search PubMed</mat-label>
+    <!--input matInput #searchBox (input)="search(searchBox.value)"  /-->
+    <input matInput #searchBox />
+  </mat-form-field>
+  <button mat-raised-button class="search-button" (click)="search(searchBox.value)">Search</button>
+</div>
