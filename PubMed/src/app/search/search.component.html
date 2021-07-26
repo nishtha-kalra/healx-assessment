@@ -1,8 +1,17 @@
 <div class="search-form">
   <mat-form-field class="search-full-width" appearance="fill">
     <mat-label>Search PubMed</mat-label>
-    <!--input matInput #searchBox (input)="search(searchBox.value)"  /-->
-    <input matInput #searchBox />
+    <input matInput #searchBox (input)="search(searchBox.value)"  />
   </mat-form-field>
-  <button mat-raised-button class="search-button" (click)="search(searchBox.value)">Search</button>
+  <button mat-raised-button class="search-button" (click)="display()">Search</button>
+</div>
+<div class="display-articles" *ngIf="articleCount > 0">
+  <p>{{articleCount}} results</p>
+  <mat-card *ngFor="let article of articles">
+    <p><a href="{{article.link}}" target="_blank">{{article.id}}</a></p>
+    <p>Title: {{article.title}}</p>
+    <p>Publication Date: {{article.date}}</p>
+    <p>Journal: {{article.journal}}</p>
+    <p>Author: {{article.author}}</p>
+  </mat-card>
 </div>

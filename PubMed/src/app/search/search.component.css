@@ -12,3 +12,13 @@
   margin-left: 20px;
   height: 50px;
 }
+
+.display-articles {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+mat-card {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
