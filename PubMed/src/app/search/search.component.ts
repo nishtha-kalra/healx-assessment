@@ -11,7 +11,7 @@ export class SearchComponent implements OnInit {
     articleIds: any = []
     articleCount: number = 0;
     articles: Article[] = [];
-    readingList: number[] = [];
+
     constructor(private articleService: ArticleService) { }
 
     search(term: string): void {

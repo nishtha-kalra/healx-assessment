@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from "../article.service";
+import {Article} from "../article";
 
 @Component({
   selector: 'app-bookmark',
@@ -7,8 +8,9 @@ import { ArticleService } from "../article.service";
   styleUrls: ['./bookmark.component.css']
 })
 export class BookmarkComponent implements OnInit {
-  constructor(private articleService: ArticleService) { }
+  readingList: Article[] = [];
 
+  constructor(private articleService: ArticleService) { }
   ngOnInit(): void {
     this.getArticles();
   }
@@ -17,6 +19,35 @@ export class BookmarkComponent implements OnInit {
     this.articleService.getReadingList()
         .subscribe(result => {
           console.log(result);
+          this.displayList(result);
         })
+  }
+
+  displayList(articles: Object) {
+    //console.log(articles);
+    //console.log(typeof (articles));
+    Object.entries(articles).forEach(entry => {
+      const [key, value] = entry;
+      let article: Article = {aid: "", author: [], link: "", journal: "", title: "", date: ""};
+      Object.entries(value).forEach(a => {
+        if (a[0] === "aid") {
+          // @ts-ignore
+          article.aid = a[1];
+        } else if (a[0] === "link") {
+          // @ts-ignore
+          article.link = a[1];
+        } else if (a[0] === "journal") {
+          // @ts-ignore
+          article.journal = a[1];
+        } else if (a[0] === "title") {
+          // @ts-ignore
+          article.title = a[1];
+        } else if (a[0] === "date") {
+          // @ts-ignore
+          article.date = a[1];
+        }
+      });
+      this.readingList.push(article);
+    });
   }
 }
