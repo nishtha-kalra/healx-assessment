@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticleService } from "../article.service";
 
 @Component({
   selector: 'app-bookmark',
@@ -6,14 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bookmark.component.css']
 })
 export class BookmarkComponent implements OnInit {
-  constructor() { }
+  constructor(private articleService: ArticleService) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem("readingList"));
-    if (localStorage.getItem("readingList")) {
-      console.log(typeof(localStorage.getItem("readingList")));
+    this.getArticles();
+    //console.log(localStorage.getItem("readingList"));
+    //if (localStorage.getItem("readingList")) {
+      //console.log(typeof(localStorage.getItem("readingList")));
       //this.getArticles(localStorage.getItem("readingList"));
-    }
+    //}
   }
 
   /*getArticles(list) {
@@ -31,4 +33,10 @@ export class BookmarkComponent implements OnInit {
         })
   }*/
 
+  getArticles() {
+    this.articleService.getReadingList()
+        .subscribe(result => {
+          console.log(result);
+        })
+  }
 }
