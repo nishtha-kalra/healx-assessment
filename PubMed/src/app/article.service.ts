@@ -26,4 +26,8 @@ export class ArticleService {
   getReadingList(): Observable<Object> {
     return this.http.get(this.serverURL);
   }
+
+  addToReadingList(article: Article): Observable<object> {
+    return this.http.post(this.serverURL, article);
+  }
 }

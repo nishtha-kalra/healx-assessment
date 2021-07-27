@@ -40,15 +40,18 @@ export class SearchComponent implements OnInit {
         //console.log(idParam);
         this.articleService.getSummary(idParam)
             .subscribe(result => {
-                //console.log(result);
+                console.log(result);
                 this.showArticles(result);
             })
     }
 
-    addToRead(id: number) {
+    addToRead(article: Article) {
         console.log("add to reading list");
-        this.readingList.push(id);
-        localStorage.setItem("readingList", JSON.stringify(this.readingList));
+        console.log(article);
+        this.articleService.addToReadingList(article)
+            .subscribe(result => {
+                console.log(result);
+            })
     }
 
     ngOnInit(): void {}
@@ -83,9 +86,9 @@ export class SearchComponent implements OnInit {
                         this.articleCount = v2.length;
                     } else {
                         console.log(v2);
-                        let article: Article = {id: 0, author: [], link: "", journal: "", title: "", date: ""};
+                        let article: Article = {aid: "", author: [], link: "", journal: "", title: "", date: ""};
                         // @ts-ignore
-                        article.id = v2.uid;
+                        article.aid = v2.uid;
                         // @ts-ignore
                         article.date = v2.pubdate;
                         // @ts-ignore

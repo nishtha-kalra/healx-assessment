@@ -1,2 +1,9 @@
 server/.DS_Store
 server/venv
+.DS_Store
+PubMed/.DS_Store
+PubMed/.idea/
+PubMed/node_modules/
+server/.idea/
+server/db.sqlite3
+server/readingList/migrations/
