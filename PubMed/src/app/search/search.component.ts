@@ -11,6 +11,7 @@ export class SearchComponent implements OnInit {
     articleIds: any = []
     articleCount: number = 0;
     articles: Article[] = [];
+    readingList: number[] = [];
     constructor(private articleService: ArticleService) { }
 
     search(term: string): void {
@@ -42,6 +43,12 @@ export class SearchComponent implements OnInit {
                 //console.log(result);
                 this.showArticles(result);
             })
+    }
+
+    addToRead(id: number) {
+        console.log("add to reading list");
+        this.readingList.push(id);
+        localStorage.setItem("readingList", JSON.stringify(this.readingList));
     }
 
     ngOnInit(): void {}

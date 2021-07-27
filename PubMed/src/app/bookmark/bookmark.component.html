@@ -1,1 +1,10 @@
-<p>bookmark works!</p>
+<!--div class="display-articles" *ngIf="rlistCount > 0">
+    <mat-card *ngFor="let article of articles">
+        <p><a href="{{article.link}}" target="_blank">{{article.id}}</a></p>
+        <p>Title: {{article.title}}</p>
+        <p>Publication Date: {{article.date}}</p>
+        <p>Journal: {{article.journal}}</p>
+        <p>Author: {{article.author}}</p>
+        <button mat-raised-button (click)="addToRead(article.id)">Add to Reading List</button>
+    </mat-card>
+</div-->
