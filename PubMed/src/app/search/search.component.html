@@ -16,3 +16,7 @@
     <button mat-raised-button (click)="addToRead(article)">Add to Reading List</button>
   </mat-card>
 </div>
+
+<div class="display-articles" *ngIf="articleCount == 0 && searched">
+  No records found matching the term.
+</div>

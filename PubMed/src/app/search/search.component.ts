@@ -11,43 +11,35 @@ export class SearchComponent implements OnInit {
     articleIds: any = []
     articleCount: number = 0;
     articles: Article[] = [];
+    searched = false;
 
     constructor(private articleService: ArticleService) { }
 
     search(term: string): void {
+        this.searched = false;
         this.articles = [];
         this.articleCount = 0;
-        //console.log(term);
         this.articleService.getArticleIds(term)
         .subscribe(result => {
-            //console.log(result);
             const ids = this.trimIds(result);
-            //console.log(ids);
             this.articleIds = ids;
-            //console.log(this.articleIds);
         });
     }
 
     display() {
-        //console.log(this.articleIds);
         this.articles = [];
         this.articleCount = 0;
         let idParam = "id=";
         for (let id of this.articleIds) {
-            //console.log(id);
             idParam = idParam + id + ",";
         }
-        //console.log(idParam);
         this.articleService.getSummary(idParam)
             .subscribe(result => {
-                console.log(result);
                 this.showArticles(result);
             })
     }
 
     addToRead(article: Article) {
-        console.log("add to reading list");
-        console.log(article);
         this.articleService.addToReadingList(article)
             .subscribe(result => {
                 console.log(result);
@@ -58,14 +50,12 @@ export class SearchComponent implements OnInit {
 
     trimIds(result: Object): any {
         let ids;
-        //console.log("inside trim ids");
         Object.entries(result).forEach(entry => {
             const [key, value] = entry;
             if (key === "esearchresult") {
                 Object.entries(value).forEach(v => {
                     const [k1, v1] = v;
                     if (k1 === "idlist") {
-                        //console.log(v1);
                         ids = v1;
                     }
                 });
@@ -75,7 +65,6 @@ export class SearchComponent implements OnInit {
     }
 
     showArticles(result: Object) {
-        console.log("inside show articles");
         Object.entries(result).forEach(entry => {
             const [k1, v1] = entry;
             if (k1 === "result") {
@@ -85,7 +74,6 @@ export class SearchComponent implements OnInit {
                         // @ts-ignore
                         this.articleCount = v2.length;
                     } else {
-                        console.log(v2);
                         let article: Article = {aid: "", author: [], link: "", journal: "", title: "", date: ""};
                         // @ts-ignore
                         article.aid = v2.uid;
@@ -104,20 +92,17 @@ export class SearchComponent implements OnInit {
                         // @ts-ignore
                         Object.entries(v2.authors).forEach(a => {
                             const [k3, v3] = a;
-                            console.log(v3);
-                            // @ts-ignore
-                            console.log(v3.name);
                             // @ts-ignore
                             article.author.push(v3.name);
                         });
                         // @ts-ignore
-                        //console.log(article);
                         this.articles.push(article);
                     }
                 });
+            } else if (k1 === "esummaryresult") {
+                this.searched = true;
             }
         });
-        console.log(this.articles);
     }
 
 }

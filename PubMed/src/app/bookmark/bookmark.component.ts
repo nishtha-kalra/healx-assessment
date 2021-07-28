@@ -18,14 +18,11 @@ export class BookmarkComponent implements OnInit {
   getArticles() {
     this.articleService.getReadingList()
         .subscribe(result => {
-          console.log(result);
           this.displayList(result);
         })
   }
 
   displayList(articles: Object) {
-    //console.log(articles);
-    //console.log(typeof (articles));
     Object.entries(articles).forEach(entry => {
       const [key, value] = entry;
       let article: Article = {aid: "", author: [], link: "", journal: "", title: "", date: ""};
