@@ -1,6 +1,7 @@
 server/.DS_Store
 server/venv
 .DS_Store
+.idea
 PubMed/.DS_Store
 PubMed/.idea/
 PubMed/node_modules/
